@@ -1,1 +1,19 @@
-<p>all works!</p>
+<div class="row gy-2 my-2 mx-1">
+  <div class="col-10 display-5">
+    <i class="fa-solid fa-globe fa-fw fa-1x me-1"></i> All posts
+  </div>
+  <mat-divider class="my-2"></mat-divider>
+</div>
+
+<div *ngFor="let post of posts">
+  <mat-card class="my-3">
+    <mat-card-title>{{post.title}}</mat-card-title>
+    <mat-card-subtitle>username goes here</mat-card-subtitle>
+    <mat-card-content>
+      <p>{{post.content}}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button>VIEW POST</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
