@@ -1,0 +1,38 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+               [mode]="(isHandset$ | async) ? 'over' : 'side'"
+               [opened]="(isHandset$ | async) === false"
+               class="sidenav"
+               fixedInViewport>
+    <mat-toolbar>
+      <i class="fa-solid fa-bars fa-fw fa-1x me-2"></i> Menu
+    </mat-toolbar>
+    <mat-nav-list>
+      <a [routerLink]="'/all'" mat-list-item style="font-size: 20px">
+        <i class="fa-solid fa-globe fa-fw fa-1x me-2"></i> All posts
+      </a>
+      <mat-divider></mat-divider>
+      <a [routerLink]="'/posts/new'" mat-list-item style="font-size: 20px">
+        <i class="fa-solid fa-feather fa-fw fa-1x me-2"></i> New post
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="accent">
+      <button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        type="button">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <div class="row mt-3">
+        <span class="fs-4">Web Forum </span>
+      </div>
+    </mat-toolbar>
+    <!-- Add Content Here -->
+    <!-- use angular content projection -->
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>
