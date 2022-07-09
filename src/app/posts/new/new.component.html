@@ -1,1 +1,26 @@
-<p>new works!</p>
+<div class="row gy-2 my-2 mx-1">
+  <div class="col-10 display-5">
+    <i class="fa-solid fa-feather fa-fw fa-1x me-1"></i> New post
+  </div>
+  <mat-divider class="my-2"></mat-divider>
+</div>
+
+<form #form="ngForm" (ngSubmit)="onSubmit(form)">
+  <div class="row gy-3">
+    <div class="col-8">
+      <input [(ngModel)]="newPost.title" autocomplete="off" class="form-control bg-dark text-light fs-3"
+             id="title" name="title" placeholder="Title" style="height: 58px; border: grey" type="text">
+    </div>
+    <div class="col-10">
+      <div class="fs-6">
+        <textarea [(ngModel)]="newPost.content" class="form-control bg-dark text-light fs-4" id="content" name="content"
+                  placeholder="Write your post content here" style="height: 300px; border: grey"></textarea>
+      </div>
+    </div>
+    <div class="col-12">
+      <button class="fs-5" color="accent" mat-flat-button style="width: 150px" type="submit">
+        <i class="fa-solid fa-paper-plane me-2"></i> POST
+      </button>
+    </div>
+  </div>
+</form>

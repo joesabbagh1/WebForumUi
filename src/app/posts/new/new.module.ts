@@ -3,6 +3,9 @@ import {CommonModule} from '@angular/common';
 
 import {NewRoutingModule} from './new-routing.module';
 import {NewComponent} from './new.component';
+import {MatDividerModule} from "@angular/material/divider";
+import {FormsModule} from "@angular/forms";
+import {MatButtonModule} from "@angular/material/button";
 
 
 @NgModule({
@@ -11,7 +14,10 @@ import {NewComponent} from './new.component';
   ],
   imports: [
     CommonModule,
-    NewRoutingModule
+    NewRoutingModule,
+    MatDividerModule,
+    FormsModule,
+    MatButtonModule
   ]
 })
 export class NewModule {
