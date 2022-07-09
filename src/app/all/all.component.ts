@@ -34,4 +34,8 @@ export class AllComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  getPostUri(id: string): string {
+    return `../posts/post/${id}`
+  }
+
 }
