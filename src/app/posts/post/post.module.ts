@@ -3,6 +3,8 @@ import {CommonModule} from '@angular/common';
 
 import {PostRoutingModule} from './post-routing.module';
 import {PostComponent} from './post.component';
+import {MatDividerModule} from "@angular/material/divider";
+import {MatCardModule} from "@angular/material/card";
 
 
 @NgModule({
@@ -11,7 +13,9 @@ import {PostComponent} from './post.component';
   ],
   imports: [
     CommonModule,
-    PostRoutingModule
+    PostRoutingModule,
+    MatDividerModule,
+    MatCardModule
   ]
 })
 export class PostModule {

@@ -1,1 +1,28 @@
-<p>post works!</p>
+<div class="row gy-2 my-2 mx-1">
+  <div class="col-10 display-5">
+    <i class="fa-solid fa-align-left fa-fw fa-1x me-1"></i> Viewing post
+  </div>
+  <mat-divider class="my-2"></mat-divider>
+</div>
+
+<div class="container-md">
+  <mat-card *ngIf="post" class="my-3">
+    <mat-card-title class="mb-3 mt-2" style="font-size: xx-large">{{post.title}}</mat-card-title>
+    <mat-card-subtitle>username goes here</mat-card-subtitle>
+    <mat-card-content>
+      <p class="mat-display-1" style="font-size: x-large">{{post.content}}</p>
+    </mat-card-content>
+    <mat-card-subtitle>{{post.date_created}}</mat-card-subtitle>
+  </mat-card>
+</div>
+
+<div class="container-md">
+  <div class="row">
+    <div class="col-12 fs-4">
+      Comments
+    </div>
+  </div>
+  <div *ngFor="let comment of comments" class="row">
+    // TODO
+  </div>
+</div>
