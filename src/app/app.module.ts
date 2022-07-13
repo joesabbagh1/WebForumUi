@@ -11,11 +11,15 @@ import {MatListModule} from "@angular/material/list";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {HttpClientModule} from "@angular/common/http";
+import {SignInComponent} from './sign-in/sign-in.component';
+import {SignUpComponent} from './sign-up/sign-up.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavigationSidebarComponent
+    NavigationSidebarComponent,
+    SignInComponent,
+    SignUpComponent
   ],
   imports: [
     BrowserModule,
