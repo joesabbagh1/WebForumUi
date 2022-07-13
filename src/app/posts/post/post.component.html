@@ -1,14 +1,23 @@
 <div class="row gy-2 my-2 mx-1">
   <div class="col-10 display-5">
-    <i class="fa-solid fa-align-left fa-fw fa-1x me-1"></i> Viewing post
+    <i class="fa-solid fa-align-left fa-fw fa-1x me-1"></i>
+    Viewing post
   </div>
   <mat-divider class="my-2"></mat-divider>
+</div>
+
+<div class="container-fluid">
+  <button [routerLink]="'../../all'" class="fs-5" color="accent" mat-flat-button>
+    <i class="fa-solid fa-angles-left fa-fw fa-1x mb-1"></i> Go Back
+  </button>
 </div>
 
 <div class="container-md">
   <mat-card *ngIf="post" class="my-3">
     <mat-card-title class="mb-3 mt-2" style="font-size: xx-large">{{post.title}}</mat-card-title>
-    <mat-card-subtitle>username goes here</mat-card-subtitle>
+    <mat-card-subtitle *ngIf="users">
+      Posted by {{getUserName(post.user_id)}}
+    </mat-card-subtitle>
     <mat-card-content>
       <p class="mat-display-1" style="font-size: x-large">{{post.content}}</p>
     </mat-card-content>
