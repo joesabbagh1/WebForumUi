@@ -11,7 +11,6 @@ export class UsersService {
   url: string;
 
   constructor(private httpClient: HttpClient) {
-    // TODO this is temporary
     this.url = environment.serverUrl + '/api/users';
   }
 

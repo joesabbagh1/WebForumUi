@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {Observable} from "rxjs";
@@ -11,7 +11,6 @@ export class PostsService {
   url: string;
 
   constructor(private httpClient: HttpClient) {
-    // TODO this is temporary
     this.url = environment.serverUrl + '/api/posts';
   }
 
