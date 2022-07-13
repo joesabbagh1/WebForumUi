@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {Observable} from "rxjs";
 import {User} from "./user";
+import {UserPassword} from "./user-password";
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +31,7 @@ export class UsersService {
     return this.httpClient.put(this.url + `/${user.id}`, user)
   }
 
-  addUser(user: User): Observable<any> {
-    return this.httpClient.post(this.url, user)
+  addUser(userPassword: UserPassword): Observable<any> {
+    return this.httpClient.post(this.url, userPassword)
   }
 }

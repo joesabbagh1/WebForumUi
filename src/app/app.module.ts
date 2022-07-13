@@ -13,6 +13,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {HttpClientModule} from "@angular/common/http";
 import {SignInComponent} from './sign-in/sign-in.component';
 import {SignUpComponent} from './sign-up/sign-up.component';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import {SignUpComponent} from './sign-up/sign-up.component';
     MatListModule,
     MatButtonModule,
     MatIconModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
