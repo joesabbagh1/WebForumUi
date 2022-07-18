@@ -2,3 +2,7 @@
   background: #303030;
   outline: grey;
 }
+
+.ng-invalid.ng-touched {
+  border-color: red;
+}

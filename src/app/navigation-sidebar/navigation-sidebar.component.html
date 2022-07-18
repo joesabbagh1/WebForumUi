@@ -15,6 +15,22 @@
       <a [routerLink]="'/posts/new'" mat-list-item style="font-size: 20px">
         <i class="fa-solid fa-feather fa-fw fa-1x me-2"></i> New post
       </a>
+      <mat-divider></mat-divider>
+      <a *ngIf='!isUserAuthenticated' [routerLinkActiveOptions]="{exact: true}"
+         [routerLink]="'/sign-in'"
+         mat-list-item routerLinkActive="active" style="font-size: 20px">
+        <i class="fa-solid fa-arrow-trend-down fa-fw fa-1x me-2"></i> Sign in
+      </a>
+      <a *ngIf='!isUserAuthenticated' [routerLinkActiveOptions]="{exact: true}"
+         [routerLink]="'/sign-up'"
+         mat-list-item routerLinkActive="active" style="font-size: 20px">
+        <i class="fa-solid fa-arrow-trend-up fa-fw fa-1x me-2"></i> Sign up
+      </a>
+      <a (click)="logout()" *ngIf='isUserAuthenticated'
+         [routerLinkActiveOptions]="{exact: true}"
+         mat-list-item routerLinkActive="active" style="font-size: 20px">
+        <i class="fa-solid fa-right-from-bracket fa-fw fa-1x me-2"></i> Log out
+      </a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {HttpErrorResponse} from "@angular/common/http";
-import {UserForAuth} from "../shared/users/user-for-authentication-dto";
+import {UserForAuth} from "../shared/authentication/user-for-authentication-dto";
 import {AuthResponseDto} from "../shared/authentication/response";
 import {AuthenticationService} from "../shared/authentication/authentication.service";
 
@@ -18,7 +18,7 @@ export class SignInComponent implements OnInit {
   errorMessage: string = '';
   showError?: boolean;
 
-  constructor(private authenticationService: AuthenticationService, private router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(private authService: AuthenticationService, private router: Router, private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit(): void {
@@ -46,10 +46,11 @@ export class SignInComponent implements OnInit {
       username: login.username,
       password: login.password
     }
-    this.authenticationService.loginUser('api/accounts/login', userForAuth)
+    this.authService.loginUser('api/accounts/login', userForAuth)
       .subscribe({
         next: (res: AuthResponseDto) => {
           localStorage.setItem("token", res.token);
+          this.authService.sendAuthStateChangeNotification(res.isAuthSuccessful);
           this.router.navigate([this.returnUrl]).then(() => {
           });
         },
