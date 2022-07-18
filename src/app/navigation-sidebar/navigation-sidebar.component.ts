@@ -22,6 +22,9 @@ export class NavigationSidebarComponent implements OnInit {
   constructor(private breakpointObserver: BreakpointObserver,
               private authService: AuthenticationService,
               private router: Router) {
+    this.authService.authChanged.subscribe(res => {
+      this.isUserAuthenticated = res;
+    })
   }
 
   ngOnInit(): void {

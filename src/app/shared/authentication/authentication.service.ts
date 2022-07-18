@@ -6,6 +6,7 @@ import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {RegistrationResponseDto} from "./registration-response-dto";
 import {UserForRegistrationDto} from './user-for-registration-dto';
+import {JwtHelperService} from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +17,14 @@ export class AuthenticationService {
   private authChangeSub = new Subject<boolean>()
   public authChanged = this.authChangeSub.asObservable();
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private jwtHelper: JwtHelperService) {
     this.url = environment.serverUrl + '/api/Auth';
+  }
+
+  isUserAuthenticated(): boolean {
+    const token = localStorage.getItem("token");
+    //@ts-ignore
+    return token && !this.jwtHelper.isTokenExpired(token);
   }
 
   registerUser(route: string, body: UserForRegistrationDto) {

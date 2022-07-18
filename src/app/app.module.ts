@@ -15,7 +15,9 @@ import {SignInComponent} from './sign-in/sign-in.component';
 import {SignUpComponent} from './sign-up/sign-up.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ErrorHandlerService} from "./shared/error-handling/error-handler.service";
+import {JwtModule} from "@auth0/angular-jwt";
 
+// @ts-ignore
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +36,15 @@ import {ErrorHandlerService} from "./shared/error-handling/error-handler.service
     MatIconModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ["localhost:5145"],
+        //@ts-ignore
+        disallowedRoutesRoutes: []
+      }
+    })
   ],
   providers: [
     {
@@ -45,5 +55,10 @@ import {ErrorHandlerService} from "./shared/error-handling/error-handler.service
   ],
   bootstrap: [AppComponent]
 })
+
 export class AppModule {
+}
+
+export function tokenGetter() {
+  return localStorage.getItem("token");
 }
