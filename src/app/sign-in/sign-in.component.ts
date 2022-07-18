@@ -1,7 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {NgForm} from "@angular/forms";
-import {UsersService} from "../shared/users/users.service";
-import {User} from "../shared/users/user";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {ActivatedRoute, Router} from "@angular/router";
+import {HttpErrorResponse} from "@angular/common/http";
+import {UserForAuth} from "../shared/users/user-for-authentication-dto";
+import {AuthResponseDto} from "../shared/authentication/response";
+import {AuthenticationService} from "../shared/authentication/authentication.service";
 
 @Component({
   selector: 'app-sign-in',
@@ -9,17 +12,51 @@ import {User} from "../shared/users/user";
   styleUrls: ['./sign-in.component.scss']
 })
 export class SignInComponent implements OnInit {
-  user: User = new User()
+  returnUrl?: string
 
-  constructor(private usersService: UsersService) {
+  loginForm!: FormGroup
+  errorMessage: string = '';
+  showError?: boolean;
+
+  constructor(private authenticationService: AuthenticationService, private router: Router, private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit(): void {
+    this.loginForm = new FormGroup({
+      username: new FormControl("", [Validators.required]),
+      password: new FormControl("", [Validators.required])
+    })
+    this.returnUrl = this.activatedRoute.snapshot.queryParams['returnUrl'] || '/';
   }
 
-  onSubmit(form: NgForm) {
-    if (form.valid) {
+  validateControl(controlName: string): boolean {
+    // @ts-ignore
+    return this.loginForm.get(controlName).invalid && this.loginForm.get(controlName).touched
+  }
 
+  hasError = (controlName: string, errorName: string) => {
+    // @ts-ignore
+    return this.loginForm.get(controlName).hasError(errorName)
+  }
+
+  loginUser = (loginFormValue: any) => {
+    this.showError = false;
+    const login = {...loginFormValue};
+    const userForAuth: UserForAuth = {
+      username: login.username,
+      password: login.password
     }
+    this.authenticationService.loginUser('api/accounts/login', userForAuth)
+      .subscribe({
+        next: (res: AuthResponseDto) => {
+          localStorage.setItem("token", res.token);
+          this.router.navigate([this.returnUrl]).then(() => {
+          });
+        },
+        error: (err: HttpErrorResponse) => {
+          this.errorMessage = err.message;
+          this.showError = true;
+        }
+      })
   }
 }
