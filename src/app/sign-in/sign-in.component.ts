@@ -18,7 +18,9 @@ export class SignInComponent implements OnInit {
   errorMessage: string = '';
   showError?: boolean;
 
-  constructor(private authService: AuthenticationService, private router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(private authService: AuthenticationService,
+              private router: Router,
+              private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit(): void {
@@ -49,14 +51,15 @@ export class SignInComponent implements OnInit {
     this.authService.loginUser('api/accounts/login', userForAuth)
       .subscribe({
         next: (res: AuthResponseDto) => {
-          localStorage.setItem("token", res.token);
-          this.authService.sendAuthStateChangeNotification(res.isAuthSuccessful);
+          localStorage.setItem("token", res.token)
+          localStorage.setItem("username", userForAuth.username)
+          this.authService.sendAuthStateChangeNotification(res.isAuthSuccessful)
           this.router.navigate([this.returnUrl]).then(() => {
-          });
+          })
         },
         error: (err: HttpErrorResponse) => {
-          this.errorMessage = err.message;
-          this.showError = true;
+          this.errorMessage = err.message
+          this.showError = true
         }
       })
   }
