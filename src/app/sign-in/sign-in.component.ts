@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {NgForm} from "@angular/forms";
-import {UserPassword} from "../shared/users/user-password";
 import {UsersService} from "../shared/users/users.service";
+import {User} from "../shared/users/user";
 
 @Component({
   selector: 'app-sign-in',
@@ -9,7 +9,7 @@ import {UsersService} from "../shared/users/users.service";
   styleUrls: ['./sign-in.component.scss']
 })
 export class SignInComponent implements OnInit {
-  user: UserPassword = new UserPassword()
+  user: User = new User()
 
   constructor(private usersService: UsersService) {
   }

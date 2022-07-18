@@ -43,15 +43,4 @@ export class PostComponent implements OnInit {
       this.replies = response
     })
   }
-
-  getUserName(id: string): string {
-    if (this.users === null)
-      return 'null'
-    for (let user of this.users!) {
-      if (user.id === id)
-        return user.username
-    }
-    return 'null'
-  }
-
 }

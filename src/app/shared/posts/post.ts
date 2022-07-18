@@ -1,6 +1,6 @@
 export class Post {
   id!: string
-  user_id!: string
+  username!: string
   title!: string
   content!: string
   date_created!: string

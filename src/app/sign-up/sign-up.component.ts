@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UsersService} from "../shared/users/users.service";
 import {NgForm} from "@angular/forms";
-import {UserPassword} from "../shared/users/user-password";
+import {User} from "../shared/users/user";
 
 @Component({
   selector: 'app-sign-up',
@@ -9,7 +9,7 @@ import {UserPassword} from "../shared/users/user-password";
   styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent implements OnInit {
-  user: UserPassword = new UserPassword()
+  user: User = new User()
 
   constructor(private usersService: UsersService) {
   }
@@ -20,7 +20,9 @@ export class SignUpComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     if (form.valid) {
-      this.usersService.addUser(this.user).subscribe()
+      this.usersService.addUser(this.user).subscribe(response => {
+        // TODO
+      })
     }
   }
 }

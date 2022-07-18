@@ -16,7 +16,7 @@
   <mat-card *ngIf="post" class="my-3">
     <mat-card-title class="mb-3 mt-2" style="font-size: xx-large">{{post.title}}</mat-card-title>
     <mat-card-subtitle *ngIf="users">
-      Posted by {{getUserName(post.user_id)}}
+      Posted by {{post.username}}
     </mat-card-subtitle>
     <mat-card-content>
       <p class="mat-display-1" style="font-size: x-large">{{post.content}}</p>

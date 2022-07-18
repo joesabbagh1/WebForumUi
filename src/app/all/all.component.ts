@@ -35,7 +35,7 @@ export class AllComponent implements OnInit {
     if (this.users === null)
       return 'null'
     for (let user of this.users!) {
-      if (user.id === id)
+      if (user.username === id)
         return user.username
     }
     return 'null'
