@@ -50,7 +50,7 @@ export class SignUpComponent implements OnInit {
       password: formValues.password,
       confirmPassword: formValues.confirm
     }
-    this.authService.registerUser("api/accounts/registration", user)
+    this.authService.registerUser("api/Users", user)
       .subscribe({
         next: (_) => console.log("Successful registration"),
         error: (err: HttpErrorResponse) => {

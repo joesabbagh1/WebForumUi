@@ -26,12 +26,27 @@
 </div>
 
 <div class="container-md">
-  <div class="row">
-    <div class="col-12 fs-4">
-      Comments
+  <div class="row gy-3 mt-2">
+    <div *ngIf="this.authService.isUserAuthenticated()" class="col-10">
+      <input [(ngModel)]="newComment.content" autocomplete="off" class="form-control bg-dark text-light fs-5"
+             id="newComment" name="newComment" placeholder="Add a comment" style="height: 58px; border: grey"
+             type="text">
+    </div>
+    <div *ngIf="this.authService.isUserAuthenticated()" class="col-1">
+      <button (click)="submitReview()" [disabled]="this.newComment.content.length === 0" class="fs-5" color="accent" mat-flat-button
+              style="height: 58px;">
+        Submit
+        <i class="fa-solid fa-angles-right fa-fw fa-1x mb-1"></i>
+      </button>
+    </div>
+    <div *ngIf="!authService.isUserAuthenticated()" class="col-12 fs-2">
+      Log in to post a comment
     </div>
   </div>
+
   <div *ngFor="let comment of comments" class="row">
-    // TODO
+    <div class="col-12">
+      {{comment.content}}
+    </div>
   </div>
 </div>

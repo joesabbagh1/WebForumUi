@@ -23,7 +23,9 @@ export class ErrorHandlerService implements HttpInterceptor {
   }
 
   private handleError = (error: HttpErrorResponse): string => {
-    if (error.status === 404) {
+    if (error.status === 400) {
+      return this.handleAlreadyTaken(error)
+    } else if (error.status === 404) {
       return this.handleNotFound(error);
     } else if (error.status === 400) {
       return this.handleBadRequest(error);
@@ -32,12 +34,20 @@ export class ErrorHandlerService implements HttpInterceptor {
     } else return 'unknown error'
   }
 
-  private handleNotFound = (error: HttpErrorResponse): string => {
+  private handleAlreadyTaken(error: HttpErrorResponse): string {
+    if (this.router.url === '/sign-up') {
+      return 'Username already taken';
+    } else {
+      return error.message;
+    }
+  }
+
+  private handleNotFound(error: HttpErrorResponse): string {
     this.router.navigate(['/404']).then()
     return error.message;
   }
 
-  private handleUnauthorized = (error: HttpErrorResponse) => {
+  private handleUnauthorized(error: HttpErrorResponse) {
     if (this.router.url === '/sign-in') {
       return 'Authentication failed. Wrong Username or Password';
     } else {
@@ -46,7 +56,7 @@ export class ErrorHandlerService implements HttpInterceptor {
     }
   }
 
-  private handleBadRequest = (error: HttpErrorResponse): string => {
+  private handleBadRequest(error: HttpErrorResponse): string {
     if (this.router.url === '/sign-up') {
       let message = '';
       const values = Object.values(error.error.errors);

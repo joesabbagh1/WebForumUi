@@ -11,15 +11,15 @@ export class CommentsService {
   url: string;
 
   constructor(private httpClient: HttpClient) {
-    this.url = environment.serverUrl + '/api/comments';
+    this.url = environment.serverUrl + '/api/Comments';
   }
 
   getComments(): Observable<Array<Comment>> {
     return this.httpClient.get<Array<Comment>>(this.url)
   }
 
-  getComment(id: string): Observable<Comment> {
-    return this.httpClient.get<Comment>(this.url + `/${id}`)
+  getCommentsByPost(id: string): Observable<Array<Comment>> {
+    return this.httpClient.get<Array<Comment>>(this.url + `/${id}`)
   }
 
   deleteComment(id: string): Observable<any> {
