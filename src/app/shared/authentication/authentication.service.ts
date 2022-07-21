@@ -23,8 +23,7 @@ export class AuthenticationService {
 
   isUserAuthenticated(): boolean {
     const token = localStorage.getItem("token");
-    //@ts-ignore
-    return token && !this.jwtHelper.isTokenExpired(token);
+    return token != null && !this.jwtHelper.isTokenExpired(token);
   }
 
   registerUser(route: string, body: UserForRegistrationDto) {

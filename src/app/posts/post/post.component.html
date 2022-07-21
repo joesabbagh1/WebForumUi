@@ -16,37 +16,78 @@
   <mat-card *ngIf="post" class="my-3">
     <mat-card-title class="mb-3 mt-2" style="font-size: xx-large">{{post.title}}</mat-card-title>
     <mat-card-subtitle *ngIf="users">
-      Posted by {{post.username}}
+      <i class="fa-solid fa-user"></i> &nbsp; {{post.username}}
+      <span class="me-3"></span>
+      <i class="fa-solid fa-calendar"></i> &nbsp; {{post.date_created.slice(0, 10)}}
     </mat-card-subtitle>
     <mat-card-content>
       <p class="mat-display-1" style="font-size: x-large">{{post.content}}</p>
     </mat-card-content>
-    <mat-card-subtitle>{{post.date_created}}</mat-card-subtitle>
   </mat-card>
 </div>
 
 <div class="container-md">
-  <div class="row gy-3 mt-2">
-    <div *ngIf="this.authService.isUserAuthenticated()" class="col-10">
+  <div class="row gy-3 my-2 mb-4">
+    <div *ngIf="authService.isUserAuthenticated()" class="col-10">
       <input [(ngModel)]="newComment.content" autocomplete="off" class="form-control bg-dark text-light fs-5"
              id="newComment" name="newComment" placeholder="Add a comment" style="height: 58px; border: grey"
              type="text">
     </div>
-    <div *ngIf="this.authService.isUserAuthenticated()" class="col-1">
-      <button (click)="submitReview()" [disabled]="this.newComment.content.length === 0" class="fs-5" color="accent" mat-flat-button
-              style="height: 58px;">
-        Submit
-        <i class="fa-solid fa-angles-right fa-fw fa-1x mb-1"></i>
+    <div *ngIf="authService.isUserAuthenticated()" class="col-1">
+      <button (click)="submitReview()" [disabled]="newComment.content.length == 0" class="fs-5" color="accent"
+              mat-flat-button style="height: 58px;">
+        Submit <i class="fa-solid fa-angles-right fa-fw fa-1x mb-1"></i>
       </button>
     </div>
     <div *ngIf="!authService.isUserAuthenticated()" class="col-12 fs-2">
       Log in to post a comment
     </div>
   </div>
+</div>
 
-  <div *ngFor="let comment of comments" class="row">
+<div class="container-md fs-3">
+  <div class="row">
     <div class="col-12">
-      {{comment.content}}
+      Comments
+    </div>
+  </div>
+</div>
+
+<div *ngIf="comments.length === 0" class="container-md mt-1">
+  <div class="row">
+    <div class="col-12">
+      This post doesn't have any comments yet
+    </div>
+  </div>
+</div>
+
+<div *ngIf="comments.length !== 0" class="container-md mt-1">
+  <div *ngFor="let comment of comments" class="row">
+    <div class="col-12 gy-3">
+      <mat-card>
+        <mat-card-subtitle style="font-size: medium">
+          <i class="fa-solid fa-user"></i> &nbsp; {{comment.username}}
+          <span class="me-3"></span>
+          <i class="fa-solid fa-calendar"></i> &nbsp; {{comment.date_created.slice(0, 10)}}
+        </mat-card-subtitle>
+        <mat-card-title style="font-size: large">
+          {{comment.content}}
+        </mat-card-title>
+        <mat-card-actions>
+          <div class="row">
+            <div *ngIf="authService.isUserAuthenticated()" class="col-10">
+              <input  autocomplete="off" class="form-control bg-dark text-light fs-5"
+                     id="newReply" name="newReply" placeholder="Add a reply" style="border: grey"
+                     type="text">
+            </div>
+            <div class="col-2">
+              <button color="primary" mat-flat-button>
+                Reply
+              </button>
+            </div>
+          </div>
+        </mat-card-actions>
+      </mat-card>
     </div>
   </div>
 </div>

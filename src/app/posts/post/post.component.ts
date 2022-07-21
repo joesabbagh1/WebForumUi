@@ -17,17 +17,16 @@ import {AuthenticationService} from "../../shared/authentication/authentication.
 })
 export class PostComponent implements OnInit {
   post!: Post
-  comments!: Array<Comment>
-  replies!: Array<Reply>
+  comments: Array<Comment> = new Array<Comment>()
+  commentReplies!: Map<string, Array<Reply>>
+  commentNewReplies!: Array<Reply>
   users!: Array<User>
   newComment: Comment = new Comment()
 
-  constructor(private activatedRoute: ActivatedRoute,
-              private postsService: PostsService,
-              private commentsService: CommentsService,
-              private repliesService: RepliesService,
-              private usersService: UsersService,
-              public authService: AuthenticationService) {
+  constructor(private activatedRoute: ActivatedRoute, private postsService: PostsService,
+              private commentsService: CommentsService, private repliesService: RepliesService,
+              private usersService: UsersService, public authService: AuthenticationService) {
+    this.newComment.content = '' // initialize to avoid errors when checking length
   }
 
   ngOnInit(): void {
@@ -35,28 +34,35 @@ export class PostComponent implements OnInit {
     this.postsService.getPost(postId).subscribe(response => {
       this.post = response
     })
+    this.reloadComments(postId)
     this.usersService.getUsers().subscribe(response => {
       this.users = response
     })
-    this.repliesService.getReplies().subscribe(response => {
-      this.replies = response
-    })
-    this.reloadComments()
   }
 
-  reloadComments() {
-    this.commentsService.getCommentsByPost(this.post.id).subscribe(response => {
+  reloadComments(postId: string) {
+    this.commentsService.getCommentsByPost(postId).subscribe(response => {
       this.comments = response
+      this.comments.forEach((item) => {
+        this.getCommentReplies(item.id)
+      })
+    })
+  }
+
+  getCommentReplies(commentId: string) {
+    this.repliesService.getRepliesByCommentId(commentId).subscribe(response => {
+      this.commentReplies.set(commentId, response)
     })
   }
 
   submitReview() {
     this.newComment.post_id = this.post.id
-    if (localStorage.getItem("username") == null)
+    if (localStorage.getItem("username") == null) {
       return
+    }
     this.newComment.username = localStorage.getItem("username") as string
     this.commentsService.addComment(this.newComment).subscribe()
-    this.reloadComments()
+    this.reloadComments(this.post.id)
     this.newComment = new Comment()
   }
 }

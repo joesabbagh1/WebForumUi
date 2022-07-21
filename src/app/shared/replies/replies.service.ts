@@ -18,8 +18,8 @@ export class RepliesService {
     return this.httpClient.get<Array<Reply>>(this.url)
   }
 
-  getReply(id: string): Observable<Reply> {
-    return this.httpClient.get<Reply>(this.url + `/${id}`)
+  getRepliesByCommentId(id: string): Observable<Array<Reply>> {
+    return this.httpClient.get<Array<Reply>>(this.url + `/${id}`)
   }
 
   deleteReply(id: string): Observable<any> {
