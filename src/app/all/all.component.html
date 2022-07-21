@@ -5,6 +5,21 @@
   <mat-divider class="mt-2"></mat-divider>
 </div>
 
+<div *ngIf="posts" class="row gt-1 mt-1">
+  <div class="col-12 col-sm-10 text-center h6">
+    <mat-form-field appearance="outline" style="width: 100%">
+      <mat-label>Search for a post</mat-label>
+      <input (keyup)="onSearchChanged()" [(ngModel)]="baseApiParams.request" autocomplete="off"
+             matInput placeholder="Ex. How to use .NET with Angular...">
+      <button (click)="onClearPressed()" *ngIf="this.baseApiParams.request" color="warn"
+              mat-icon-button matSuffix>
+        <mat-icon matTooltip="Clear input" matTooltipClass="custom-tooltip-clear">close
+        </mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+</div>
+
 <div *ngIf="posts?.length === 0" class="row">
   <div class="col-12 text-center fs-2 my-2">
     <i class="fa-solid fa-face-frown-open fa-fw fa-2x mb-3"></i> <br>

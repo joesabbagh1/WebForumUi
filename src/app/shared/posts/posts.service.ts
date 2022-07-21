@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {Observable} from "rxjs";
 import {Post} from "./post";
+import {BaseApiParams} from "../base-api-params";
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +15,8 @@ export class PostsService {
     this.url = environment.serverUrl + '/api/posts';
   }
 
-  getPosts(): Observable<Array<Post>> {
-    return this.httpClient.get<Array<Post>>(this.url)
+  getPosts(baseApiParams: BaseApiParams): Observable<Array<Post>> {
+    return this.httpClient.get<Array<Post>>(this.url, {params: (baseApiParams as any)})
   }
 
   getPost(id: string): Observable<Post> {
