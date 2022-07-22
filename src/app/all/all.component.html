@@ -6,7 +6,7 @@
 </div>
 
 <div *ngIf="posts" class="row gt-1 mt-1">
-  <div class="col-12 col-sm-10 text-center h6">
+  <div class="col-12 px-3 text-center h6">
     <mat-form-field appearance="outline" style="width: 100%">
       <mat-label>Search for a post</mat-label>
       <input (keyup)="onSearchChanged()" [(ngModel)]="baseApiParams.request" autocomplete="off"
@@ -19,6 +19,25 @@
     </mat-form-field>
   </div>
 </div>
+
+<div *ngIf="posts" class="ms-1">
+  <form (ngSubmit)="filterByDate(range.value)" [formGroup]="range" autocomplete="off" novalidate>
+    <mat-form-field appearance="fill">
+      <mat-label>Enter a date range</mat-label>
+      <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+        <input formControlName="start" matStartDate placeholder="Start date">
+        <input formControlName="end" matEndDate placeholder="End date">
+      </mat-date-range-input>
+      <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+    <button class="ms-3" color="accent" mat-flat-button type="submit">
+      <i class="fa-solid fa-filter"></i> Filter by date
+    </button>
+  </form>
+</div>
+
 
 <div *ngIf="posts?.length === 0" class="row">
   <div class="col-12 text-center fs-2 my-2">
