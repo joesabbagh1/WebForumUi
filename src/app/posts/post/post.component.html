@@ -14,7 +14,7 @@
 
 <div class="container-md">
   <mat-card *ngIf="post" class="my-3">
-    <mat-card-title class="mb-3 mt-2" style="font-size: xx-large">{{post.title}}</mat-card-title>
+    <mat-card-title class="mb-4 mt-2" style="font-size: xx-large">{{post.title}}</mat-card-title>
     <mat-card-subtitle *ngIf="users">
       <i class="fa-solid fa-user"></i> &nbsp; {{post.username}}
       <span class="me-3"></span>
@@ -61,8 +61,8 @@
   </div>
 </div>
 
-<div *ngIf="comments.length !== 0" class="container-md mt-1">
-  <div *ngFor="let comment of comments" class="row">
+<div *ngIf="comments.length !== 0" class="container-md mt-1 mb-3">
+  <div *ngFor="let comment of comments; index as i" class="row">
     <div class="col-12 gy-3">
       <mat-card>
         <mat-card-subtitle style="font-size: medium">
@@ -74,16 +74,28 @@
           {{comment.content}}
         </mat-card-title>
         <mat-card-actions>
-          <div class="row">
-            <div *ngIf="authService.isUserAuthenticated()" class="col-10">
-              <input  autocomplete="off" class="form-control bg-dark text-light fs-5"
+          <div class="row mb-3" *ngIf="authService.isUserAuthenticated()">
+            <div class="col-10">
+              <input [(ngModel)]="newReplies[i]" autocomplete="off" class="form-control bg-dark text-light fs-5"
                      id="newReply" name="newReply" placeholder="Add a reply" style="border: grey"
                      type="text">
             </div>
             <div class="col-2">
-              <button color="primary" mat-flat-button>
+              <button color="primary" mat-flat-button (click)="submitReply(comment.id, newReplies[i])">
                 Reply
               </button>
+            </div>
+          </div>
+          <div class="container-md gy-5">
+            <div class="row mb-2" *ngFor="let reply of comment.replies">
+              <div class="col-12 mb-1">
+                <i class="fa-solid fa-user"></i> &nbsp; {{reply.username}}
+                <span class="me-3"></span>
+                <i class="fa-solid fa-calendar"></i> &nbsp; {{reply.date_created.slice(0, 10)}}
+              </div>
+              <div class="col-12">
+                {{reply.content}}
+              </div>
             </div>
           </div>
         </mat-card-actions>
