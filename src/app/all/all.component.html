@@ -8,7 +8,7 @@
 <div *ngIf="posts" class="row gt-1 mt-1">
   <div class="col-12 px-3 text-center h6">
     <mat-form-field appearance="outline" style="width: 100%">
-      <mat-label>Search for a post</mat-label>
+      <mat-label>Search for a post by keywords</mat-label>
       <input (keyup)="onSearchChanged()" [(ngModel)]="baseApiParams.request" autocomplete="off"
              matInput placeholder="Ex. How to use .NET with Angular...">
       <button (click)="onClearPressed()" *ngIf="this.baseApiParams.request" color="warn"
@@ -33,9 +33,31 @@
       <mat-date-range-picker #picker></mat-date-range-picker>
     </mat-form-field>
     <button class="ms-3" color="accent" mat-flat-button type="submit">
-      <i class="fa-solid fa-filter"></i> Filter by date
+      <i class="fa-solid fa-filter"></i> Filter by date range
     </button>
   </form>
+
+  <div class="row mt-2">
+    <div class="col-12">
+      <mat-form-field appearance="outline" style="width: 257px">
+        <mat-label>Filter by username</mat-label>
+        <input [(ngModel)]="searchUsername" autocomplete="off"
+               matInput placeholder="Ex. user103...">
+        <button (click)="clearSearchUsername()" *ngIf="searchUsername !== ''" color="warn"
+                mat-icon-button matSuffix>
+          <mat-icon matTooltip="Clear input" matTooltipClass="custom-tooltip-clear">close
+          </mat-icon>
+        </button>
+      </mat-form-field>
+      <button (click)="filterByUsername()" class="ms-3" color="accent" mat-flat-button>
+        <i class="fa-solid fa-filter"></i> Filter by username
+      </button>
+    </div>
+  </div>
+
+  <button (click)="clearFilters()" class="my-1" color="primary" mat-flat-button>
+    <i class="fa-solid fa-filter-circle-xmark"></i> Clear filters
+  </button>
 </div>
 
 

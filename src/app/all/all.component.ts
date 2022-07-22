@@ -22,6 +22,7 @@ export class AllComponent implements OnInit, OnDestroy {
   subscriptions: Subscription
 
   range: FormGroup
+  searchUsername = ''
 
   constructor(private postsService: PostsService,
               private usersService: UsersService) {
@@ -92,12 +93,25 @@ export class AllComponent implements OnInit, OnDestroy {
     delete this.baseApiParams.startDate
     delete this.baseApiParams.endDate
     delete this.baseApiParams.username
+    this.searchUsername = ''
+    this.reloadPosts()
   }
 
   filterByDate(dateFormValue: any) {
     const input = {...dateFormValue}
     this.baseApiParams.startDate = this.parseDate(input.start)
     this.baseApiParams.endDate = this.parseDate(input.end)
+    this.reloadPosts()
+  }
+
+  filterByUsername() {
+    this.baseApiParams.username = this.searchUsername
+    this.reloadPosts()
+  }
+
+  clearSearchUsername() {
+    this.searchUsername = ''
+    delete this.baseApiParams.username
     this.reloadPosts()
   }
 
